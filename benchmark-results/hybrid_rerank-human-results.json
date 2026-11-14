@@ -1,0 +1,1538 @@
+{
+  "metrics": {
+    "mode": "hybrid_rerank",
+    "suite": "human",
+    "retrieval_only": false,
+    "cases": 41,
+    "recall_at_5": 1,
+    "mrr": 0.9848484848484849,
+    "citation_correctness": 0.9393939393939394,
+    "grounded_answer_accuracy": 0.9024390243902439,
+    "permission_leaks": 0,
+    "p95_latency_ms": 41871,
+    "cost_per_success_usd": 6.787297297297297e-05
+  },
+  "cases": [
+    {
+      "id": "hr-travel-01",
+      "type": "answerable",
+      "suite": "human_reviewed",
+      "question": "I'm booking domestic travel. How many business days before departure do I need manager approval?",
+      "expected": "10 business days",
+      "document_id": "travel",
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "Based on the provided passages, there is a conflict between the policies:\n\n* One policy states that domestic travel requires manager approval 10 business days before departure [travel:0:52e9d0a96191].\n* Another policy (Policy version B) states that manager approval has no requirement, though it notes a conflict with version A [travel-legacy:0:34cd2c3b7b6f].\n\nBecause the evidence is contradictory, you cannot determine the definitive answer [travel:0:52e9d0a96191, travel-legacy:0:34cd2c3b7b6f].",
+      "retrieved_document_ids": [
+        "travel",
+        "travel-legacy",
+        "refund",
+        "privacy",
+        "expense"
+      ],
+      "retrieved_contexts": [
+        "Domestic travel requires manager approval 10 business days before departure.",
+        "Policy version B states that manager approval has no requirement. This version is marked current, but conflicts with version A.",
+        "Refund requests are reviewed within 5 business days.",
+        "Data subject requests receive an initial response within 7 days.",
+        "Expense reports must be submitted within 30 calendar days of purchase."
+      ],
+      "citations": [
+        "travel:0:52e9d0a96191",
+        "travel-legacy:0:34cd2c3b7b6f"
+      ],
+      "recall_at_5": 1,
+      "reciprocal_rank": 1.0,
+      "citation_correct": true,
+      "grounded_answer_correct": true,
+      "permission_leak": false,
+      "latency_ms": 42586,
+      "estimated_cost_usd": 0.00012090000000000001
+    },
+    {
+      "id": "hr-expense-01",
+      "type": "answerable",
+      "suite": "human_reviewed",
+      "question": "I paid for a team lunch on my card. How long do I have to file the expense report?",
+      "expected": "30 calendar days",
+      "document_id": "expense",
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "",
+      "retrieved_document_ids": [
+        "expense",
+        "refund",
+        "privacy",
+        "logging",
+        "retention"
+      ],
+      "retrieved_contexts": [
+        "Expense reports must be submitted within 30 calendar days of purchase.",
+        "Refund requests are reviewed within 5 business days.",
+        "Data subject requests receive an initial response within 7 days.",
+        "Application audit logs are retained for 400 days.",
+        "Customer support tickets are retained for 24 months."
+      ],
+      "citations": [],
+      "recall_at_5": 1,
+      "reciprocal_rank": 1.0,
+      "citation_correct": false,
+      "grounded_answer_correct": false,
+      "permission_leak": false,
+      "latency_ms": 20618,
+      "estimated_cost_usd": 0.0
+    },
+    {
+      "id": "hr-security-01",
+      "type": "answerable",
+      "suite": "human_reviewed",
+      "question": "We noticed suspicious activity on a laptop. How quickly must we report a security incident?",
+      "expected": "2 hours",
+      "document_id": "security",
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "Security incidents must be reported to the security desk within 2 hours of discovery [security:0:67c7934a1ed4].",
+      "retrieved_document_ids": [
+        "security",
+        "device",
+        "incident",
+        "security-legacy",
+        "privacy"
+      ],
+      "retrieved_contexts": [
+        "Security incidents must be reported to the security desk within 2 hours of discovery.",
+        "Company laptops must lock after 5 minutes of inactivity.",
+        "Severity one incidents require status updates every 30 minutes.",
+        "Policy version B states that security incidents has no requirement. This version is marked current, but conflicts with version A.",
+        "Data subject requests receive an initial response within 7 days."
+      ],
+      "citations": [
+        "security:0:67c7934a1ed4"
+      ],
+      "recall_at_5": 1,
+      "reciprocal_rank": 1.0,
+      "citation_correct": true,
+      "grounded_answer_correct": true,
+      "permission_leak": false,
+      "latency_ms": 41459,
+      "estimated_cost_usd": 5.43e-05
+    },
+    {
+      "id": "hr-password-01",
+      "type": "answerable",
+      "suite": "human_reviewed",
+      "question": "How often do privileged account passwords need to be rotated?",
+      "expected": "90 days",
+      "document_id": "password",
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "Based on the provided passages, there is conflicting information:\n\n* Privileged account passwords must be rotated every 90 days [password:0:2265f6d276e4].\n* Policy version B states that privileged account passwords have no requirement, though this version conflicts with version A [password-legacy:0:67605f440879].",
+      "retrieved_document_ids": [
+        "password",
+        "password-legacy",
+        "incident",
+        "network",
+        "expense"
+      ],
+      "retrieved_contexts": [
+        "Privileged account passwords must be rotated every 90 days.",
+        "Policy version B states that privileged account passwords has no requirement. This version is marked current, but conflicts with version A.",
+        "Severity one incidents require status updates every 30 minutes.",
+        "Firewall rules are reviewed every 180 days.",
+        "Expense reports must be submitted within 30 calendar days of purchase."
+      ],
+      "citations": [
+        "password:0:2265f6d276e4",
+        "password-legacy:0:67605f440879"
+      ],
+      "recall_at_5": 1,
+      "reciprocal_rank": 1.0,
+      "citation_correct": true,
+      "grounded_answer_correct": true,
+      "permission_leak": false,
+      "latency_ms": 41350,
+      "estimated_cost_usd": 8.46e-05
+    },
+    {
+      "id": "hr-retention-01",
+      "type": "answerable",
+      "suite": "human_reviewed",
+      "question": "How long do we keep customer support tickets in the system?",
+      "expected": "24 months",
+      "document_id": "retention",
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "Based on the provided passages, customer support tickets are retained for 24 months [retention:0:fe4b1a72724f]. However, there is a conflicting policy (Policy version B) which states that customer support tickets have no requirement [retention-legacy:0:109667390c19].",
+      "retrieved_document_ids": [
+        "retention",
+        "support",
+        "retention-legacy",
+        "offboarding",
+        "logging"
+      ],
+      "retrieved_contexts": [
+        "Customer support tickets are retained for 24 months.",
+        "Priority one support tickets target a 15 minute first response.",
+        "Policy version B states that customer support tickets has no requirement. This version is marked current, but conflicts with version A.",
+        "Employee access is revoked within 4 hours of termination.",
+        "Application audit logs are retained for 400 days."
+      ],
+      "citations": [
+        "retention:0:fe4b1a72724f",
+        "retention-legacy:0:109667390c19"
+      ],
+      "recall_at_5": 1,
+      "reciprocal_rank": 1.0,
+      "citation_correct": true,
+      "grounded_answer_correct": true,
+      "permission_leak": false,
+      "latency_ms": 41366,
+      "estimated_cost_usd": 8.01e-05
+    },
+    {
+      "id": "hr-backup-01",
+      "type": "answerable",
+      "suite": "human_reviewed",
+      "question": "What is the backup interval for production databases?",
+      "expected": "6 hours",
+      "document_id": "backup",
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "Production database backups run every 6 hours [backup:0:51e12821fd3d].",
+      "retrieved_document_ids": [
+        "backup",
+        "backup-legacy",
+        "deployment",
+        "deployment-legacy",
+        "recovery"
+      ],
+      "retrieved_contexts": [
+        "Production database backups run every 6 hours.",
+        "Policy version B states that production database backups has no requirement. This version is marked current, but conflicts with version A.",
+        "Production deployments require two independent approvals.",
+        "Policy version B states that production deployments has no requirement. This version is marked current, but conflicts with version A.",
+        "The critical service recovery time objective is 4 hours."
+      ],
+      "citations": [
+        "backup:0:51e12821fd3d"
+      ],
+      "recall_at_5": 1,
+      "reciprocal_rank": 1.0,
+      "citation_correct": true,
+      "grounded_answer_correct": true,
+      "permission_leak": false,
+      "latency_ms": 41239,
+      "estimated_cost_usd": 4.8899999999999996e-05
+    },
+    {
+      "id": "hr-access-01",
+      "type": "answerable",
+      "suite": "human_reviewed",
+      "question": "How frequently are access reviews required for user permissions?",
+      "expected": "every quarter",
+      "document_id": "access",
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "Based on the provided passages, access reviews are required every quarter [access:0:3fbfec59c126]. However, there is a conflicting policy (Policy version B) which states that access reviews have no requirement [access-legacy:0:abb4a970879b]. Because the passages contain contradictory information, we cannot definitively determine the final requirement [access-legacy:0:abb4a970879b].",
+      "retrieved_document_ids": [
+        "access",
+        "access-legacy",
+        "network",
+        "change",
+        "refund"
+      ],
+      "retrieved_contexts": [
+        "Access reviews are required every quarter.",
+        "Policy version B states that access reviews has no requirement. This version is marked current, but conflicts with version A.",
+        "Firewall rules are reviewed every 180 days.",
+        "Emergency changes require retrospective review within 48 hours.",
+        "Refund requests are reviewed within 5 business days."
+      ],
+      "citations": [
+        "access:0:3fbfec59c126",
+        "access-legacy:0:abb4a970879b"
+      ],
+      "recall_at_5": 1,
+      "reciprocal_rank": 1.0,
+      "citation_correct": true,
+      "grounded_answer_correct": true,
+      "permission_leak": false,
+      "latency_ms": 41480,
+      "estimated_cost_usd": 9.075e-05
+    },
+    {
+      "id": "hr-device-01",
+      "type": "answerable",
+      "suite": "human_reviewed",
+      "question": "After how many minutes of inactivity should a company laptop lock itself?",
+      "expected": "5 minutes",
+      "document_id": "device",
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "Based on the provided passages, company laptops must lock after 5 minutes of inactivity [device:0:de06aef651cf].",
+      "retrieved_document_ids": [
+        "device",
+        "device-legacy",
+        "incident",
+        "security",
+        "offboarding"
+      ],
+      "retrieved_contexts": [
+        "Company laptops must lock after 5 minutes of inactivity.",
+        "Policy version B states that company laptops has no requirement. This version is marked current, but conflicts with version A.",
+        "Severity one incidents require status updates every 30 minutes.",
+        "Security incidents must be reported to the security desk within 2 hours of discovery.",
+        "Employee access is revoked within 4 hours of termination."
+      ],
+      "citations": [
+        "device:0:de06aef651cf"
+      ],
+      "recall_at_5": 1,
+      "reciprocal_rank": 1.0,
+      "citation_correct": true,
+      "grounded_answer_correct": true,
+      "permission_leak": false,
+      "latency_ms": 41167,
+      "estimated_cost_usd": 5.295e-05
+    },
+    {
+      "id": "hr-onboarding-01",
+      "type": "answerable",
+      "suite": "human_reviewed",
+      "question": "When do new hires need to finish security training?",
+      "expected": "14 days",
+      "document_id": "onboarding",
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "New employees must complete security training within 14 days of joining [onboarding:0:89695a0f5430]. However, Policy version B states that security training has no requirement [onboarding-legacy:0:e3ec273d710d].",
+      "retrieved_document_ids": [
+        "onboarding",
+        "onboarding-legacy",
+        "training",
+        "security",
+        "training-legacy"
+      ],
+      "retrieved_contexts": [
+        "New employees complete security training within 14 days of joining.",
+        "Policy version B states that security training has no requirement. This version is marked current, but conflicts with version A.",
+        "Annual compliance training is due by September 30.",
+        "Security incidents must be reported to the security desk within 2 hours of discovery.",
+        "Policy version B states that annual compliance training has no requirement. This version is marked current, but conflicts with version A."
+      ],
+      "citations": [
+        "onboarding:0:89695a0f5430",
+        "onboarding-legacy:0:e3ec273d710d"
+      ],
+      "recall_at_5": 1,
+      "reciprocal_rank": 1.0,
+      "citation_correct": true,
+      "grounded_answer_correct": true,
+      "permission_leak": false,
+      "latency_ms": 41359,
+      "estimated_cost_usd": 7.5e-05
+    },
+    {
+      "id": "hr-offboarding-01",
+      "type": "answerable",
+      "suite": "human_reviewed",
+      "question": "How fast is access removed when someone is terminated?",
+      "expected": "4 hours",
+      "document_id": "offboarding",
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "Employee access is revoked within 4 hours of termination [offboarding:0:a317648ea8d3].",
+      "retrieved_document_ids": [
+        "offboarding",
+        "privacy",
+        "change",
+        "device",
+        "recovery"
+      ],
+      "retrieved_contexts": [
+        "Employee access is revoked within 4 hours of termination.",
+        "Data subject requests receive an initial response within 7 days.",
+        "Emergency changes require retrospective review within 48 hours.",
+        "Company laptops must lock after 5 minutes of inactivity.",
+        "The critical service recovery time objective is 4 hours."
+      ],
+      "citations": [
+        "offboarding:0:a317648ea8d3"
+      ],
+      "recall_at_5": 1,
+      "reciprocal_rank": 1.0,
+      "citation_correct": true,
+      "grounded_answer_correct": true,
+      "permission_leak": false,
+      "latency_ms": 41203,
+      "estimated_cost_usd": 4.8e-05
+    },
+    {
+      "id": "hr-vendor-01",
+      "type": "answerable",
+      "suite": "human_reviewed",
+      "question": "How often are critical vendors reassessed?",
+      "expected": "annually",
+      "document_id": "vendor",
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "Based on the provided passages, critical vendors are reviewed annually [vendor:0:e91259ad4785], but there is also a conflicting policy (Policy version B) which states that critical vendors have no requirement [vendor-legacy:0:df8cd00e4aca].",
+      "retrieved_document_ids": [
+        "vendor",
+        "vendor-legacy",
+        "recovery",
+        "network",
+        "refund"
+      ],
+      "retrieved_contexts": [
+        "Critical vendors are reviewed annually.",
+        "Policy version B states that critical vendors has no requirement. This version is marked current, but conflicts with version A.",
+        "The critical service recovery time objective is 4 hours.",
+        "Firewall rules are reviewed every 180 days.",
+        "Refund requests are reviewed within 5 business days."
+      ],
+      "citations": [
+        "vendor:0:e91259ad4785",
+        "vendor-legacy:0:df8cd00e4aca"
+      ],
+      "recall_at_5": 1,
+      "reciprocal_rank": 1.0,
+      "citation_correct": true,
+      "grounded_answer_correct": true,
+      "permission_leak": false,
+      "latency_ms": 41341,
+      "estimated_cost_usd": 6.96e-05
+    },
+    {
+      "id": "hr-privacy-01",
+      "type": "answerable",
+      "suite": "human_reviewed",
+      "question": "What is the deadline for an initial response to a data subject request?",
+      "expected": "7 days",
+      "document_id": "privacy",
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "Based on the provided passages, there is a conflict:\n* Policy version A states that data subject requests receive an initial response within 7 days [privacy:0:3c5250903716].\n* Policy version B states that data subject requests have no requirement [privacy-legacy:0:5d982e662ad8]. \n\nBecause these passages conflict, we cannot determine the definitive answer [privacy-legacy:0:5d982e662ad8].",
+      "retrieved_document_ids": [
+        "privacy",
+        "privacy-legacy",
+        "refund",
+        "support",
+        "change"
+      ],
+      "retrieved_contexts": [
+        "Data subject requests receive an initial response within 7 days.",
+        "Policy version B states that data subject requests has no requirement. This version is marked current, but conflicts with version A.",
+        "Refund requests are reviewed within 5 business days.",
+        "Priority one support tickets target a 15 minute first response.",
+        "Emergency changes require retrospective review within 48 hours."
+      ],
+      "citations": [
+        "privacy:0:3c5250903716",
+        "privacy-legacy:0:5d982e662ad8"
+      ],
+      "recall_at_5": 1,
+      "reciprocal_rank": 1.0,
+      "citation_correct": true,
+      "grounded_answer_correct": true,
+      "permission_leak": false,
+      "latency_ms": 41507,
+      "estimated_cost_usd": 0.00010109999999999999
+    },
+    {
+      "id": "hr-change-01",
+      "type": "answerable",
+      "suite": "human_reviewed",
+      "question": "After an emergency production change, when is the retrospective review due?",
+      "expected": "48 hours",
+      "document_id": "change",
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "Based on the supplied passages, there is conflicting information:\n\n* One passage states that emergency changes require a retrospective review within 48 hours [change:0:7376c404e302].\n* Another passage states that Policy version B (marked current) has no requirement for emergency changes, though it conflicts with version A [change-legacy:0:e8b250cdb928]. \n\nBecause the evidence is contradictory, you cannot determine the answer with certainty based solely on the provided text.",
+      "retrieved_document_ids": [
+        "change",
+        "change-legacy",
+        "training",
+        "refund",
+        "deployment"
+      ],
+      "retrieved_contexts": [
+        "Emergency changes require retrospective review within 48 hours.",
+        "Policy version B states that emergency changes has no requirement. This version is marked current, but conflicts with version A.",
+        "Annual compliance training is due by September 30.",
+        "Refund requests are reviewed within 5 business days.",
+        "Production deployments require two independent approvals."
+      ],
+      "citations": [
+        "change:0:7376c404e302",
+        "change-legacy:0:e8b250cdb928"
+      ],
+      "recall_at_5": 1,
+      "reciprocal_rank": 1.0,
+      "citation_correct": true,
+      "grounded_answer_correct": true,
+      "permission_leak": false,
+      "latency_ms": 41505,
+      "estimated_cost_usd": 9.99e-05
+    },
+    {
+      "id": "hr-deployment-01",
+      "type": "answerable",
+      "suite": "human_reviewed",
+      "question": "How many independent approvals does a production deployment need?",
+      "expected": "two independent approvals",
+      "document_id": "deployment",
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "A production deployment requires two independent approvals [deployment:0:eadbf5f9ad8d].",
+      "retrieved_document_ids": [
+        "deployment",
+        "deployment-legacy",
+        "backup",
+        "travel-legacy",
+        "backup-legacy"
+      ],
+      "retrieved_contexts": [
+        "Production deployments require two independent approvals.",
+        "Policy version B states that production deployments has no requirement. This version is marked current, but conflicts with version A.",
+        "Production database backups run every 6 hours.",
+        "Policy version B states that manager approval has no requirement. This version is marked current, but conflicts with version A.",
+        "Policy version B states that production database backups has no requirement. This version is marked current, but conflicts with version A."
+      ],
+      "citations": [
+        "deployment:0:eadbf5f9ad8d"
+      ],
+      "recall_at_5": 1,
+      "reciprocal_rank": 1.0,
+      "citation_correct": true,
+      "grounded_answer_correct": true,
+      "permission_leak": false,
+      "latency_ms": 41262,
+      "estimated_cost_usd": 4.875e-05
+    },
+    {
+      "id": "hr-incident-01",
+      "type": "answerable",
+      "suite": "human_reviewed",
+      "question": "For a severity-one incident, how often do we owe status updates?",
+      "expected": "30 minutes",
+      "document_id": "incident",
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "Based on the provided passages, there are conflicting policies regarding the frequency of status updates for severity one incidents:\n\n* Severity one incidents require status updates every 30 minutes [incident:0:6d4e1a7a454a].\n* Policy version B states that severity one incident updates have no requirement, though this version conflicts with version A [incident-legacy:0:7a0576779f8d].",
+      "retrieved_document_ids": [
+        "incident",
+        "incident-legacy",
+        "logging",
+        "privacy",
+        "change"
+      ],
+      "retrieved_contexts": [
+        "Severity one incidents require status updates every 30 minutes.",
+        "Policy version B states that severity one incident updates has no requirement. This version is marked current, but conflicts with version A.",
+        "Application audit logs are retained for 400 days.",
+        "Data subject requests receive an initial response within 7 days.",
+        "Emergency changes require retrospective review within 48 hours."
+      ],
+      "citations": [
+        "incident:0:6d4e1a7a454a",
+        "incident-legacy:0:7a0576779f8d"
+      ],
+      "recall_at_5": 1,
+      "reciprocal_rank": 1.0,
+      "citation_correct": true,
+      "grounded_answer_correct": true,
+      "permission_leak": false,
+      "latency_ms": 41365,
+      "estimated_cost_usd": 9.135e-05
+    },
+    {
+      "id": "hr-recovery-01",
+      "type": "answerable",
+      "suite": "human_reviewed",
+      "question": "What is the recovery time objective for our most critical service?",
+      "expected": "4 hours",
+      "document_id": "recovery",
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "Based on the supplied passages, there is a conflict between the policies: one states that the critical service recovery time objective is 4 hours [recovery:0:b79ab991f12c], while the other (Policy version B) states that critical service recovery has no requirement [recovery-legacy:0:29ac4b88c908]. Because the evidence is contradictory, we cannot determine the exact answer [recovery-legacy:0:29ac4b88c908].",
+      "retrieved_document_ids": [
+        "recovery",
+        "recovery-legacy",
+        "vendor",
+        "change",
+        "offboarding"
+      ],
+      "retrieved_contexts": [
+        "The critical service recovery time objective is 4 hours.",
+        "Policy version B states that critical service recovery time has no requirement. This version is marked current, but conflicts with version A.",
+        "Critical vendors are reviewed annually.",
+        "Emergency changes require retrospective review within 48 hours.",
+        "Employee access is revoked within 4 hours of termination."
+      ],
+      "citations": [
+        "recovery:0:b79ab991f12c",
+        "recovery-legacy:0:29ac4b88c908"
+      ],
+      "recall_at_5": 1,
+      "reciprocal_rank": 1.0,
+      "citation_correct": true,
+      "grounded_answer_correct": true,
+      "permission_leak": false,
+      "latency_ms": 41506,
+      "estimated_cost_usd": 9.915000000000001e-05
+    },
+    {
+      "id": "hr-billing-01",
+      "type": "answerable",
+      "suite": "human_reviewed",
+      "question": "On which day of the month are customer invoices issued?",
+      "expected": "first business day",
+      "document_id": "billing",
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "Customer invoices are issued on the first business day of each month [billing:0:26aad85f7346].",
+      "retrieved_document_ids": [
+        "billing",
+        "billing-legacy",
+        "retention",
+        "expense",
+        "refund"
+      ],
+      "retrieved_contexts": [
+        "Customer invoices are issued on the first business day of each month.",
+        "Policy version B states that customer invoices has no requirement. This version is marked current, but conflicts with version A.",
+        "Customer support tickets are retained for 24 months.",
+        "Expense reports must be submitted within 30 calendar days of purchase.",
+        "Refund requests are reviewed within 5 business days."
+      ],
+      "citations": [
+        "billing:0:26aad85f7346"
+      ],
+      "recall_at_5": 1,
+      "reciprocal_rank": 1.0,
+      "citation_correct": true,
+      "grounded_answer_correct": true,
+      "permission_leak": false,
+      "latency_ms": 41425,
+      "estimated_cost_usd": 5.025e-05
+    },
+    {
+      "id": "hr-refund-01",
+      "type": "answerable",
+      "suite": "human_reviewed",
+      "question": "How long does the company take to review a refund request?",
+      "expected": "5 business days",
+      "document_id": "refund",
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "The company reviews refund requests within 5 business days [refund:0:ef35a4884352].",
+      "retrieved_document_ids": [
+        "refund",
+        "change",
+        "privacy",
+        "expense",
+        "recovery"
+      ],
+      "retrieved_contexts": [
+        "Refund requests are reviewed within 5 business days.",
+        "Emergency changes require retrospective review within 48 hours.",
+        "Data subject requests receive an initial response within 7 days.",
+        "Expense reports must be submitted within 30 calendar days of purchase.",
+        "The critical service recovery time objective is 4 hours."
+      ],
+      "citations": [
+        "refund:0:ef35a4884352"
+      ],
+      "recall_at_5": 1,
+      "reciprocal_rank": 1.0,
+      "citation_correct": true,
+      "grounded_answer_correct": true,
+      "permission_leak": false,
+      "latency_ms": 41871,
+      "estimated_cost_usd": 4.785e-05
+    },
+    {
+      "id": "hr-contract-01",
+      "type": "answerable",
+      "suite": "human_reviewed",
+      "question": "At what contract value is legal review required?",
+      "expected": "$100,000",
+      "document_id": "contract",
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "Based on the supplied passages, contracts above $100,000 require legal review [contract:0:e1274da93152]. However, Policy version B states that the legal review threshold has no requirement, though it conflicts with version A [contract-legacy:0:ed3efe81dafb].",
+      "retrieved_document_ids": [
+        "contract",
+        "contract-legacy",
+        "access",
+        "procurement",
+        "change"
+      ],
+      "retrieved_contexts": [
+        "Contracts above $100,000 require legal review.",
+        "Policy version B states that legal review threshold has no requirement. This version is marked current, but conflicts with version A.",
+        "Access reviews are required every quarter.",
+        "Purchase orders above $25,000 require finance approval.",
+        "Emergency changes require retrospective review within 48 hours."
+      ],
+      "citations": [
+        "contract:0:e1274da93152",
+        "contract-legacy:0:ed3efe81dafb"
+      ],
+      "recall_at_5": 1,
+      "reciprocal_rank": 1.0,
+      "citation_correct": true,
+      "grounded_answer_correct": true,
+      "permission_leak": false,
+      "latency_ms": 41300,
+      "estimated_cost_usd": 7.619999999999998e-05
+    },
+    {
+      "id": "hr-procurement-01",
+      "type": "answerable",
+      "suite": "human_reviewed",
+      "question": "Which purchase order amount triggers finance approval?",
+      "expected": "$25,000",
+      "document_id": "procurement",
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "Purchase orders above $25,000 require finance approval [procurement:0:567d8e82d414].",
+      "retrieved_document_ids": [
+        "procurement",
+        "procurement-legacy",
+        "deployment",
+        "travel",
+        "travel-legacy"
+      ],
+      "retrieved_contexts": [
+        "Purchase orders above $25,000 require finance approval.",
+        "Policy version B states that finance approval threshold has no requirement. This version is marked current, but conflicts with version A.",
+        "Production deployments require two independent approvals.",
+        "Domestic travel requires manager approval 10 business days before departure.",
+        "Policy version B states that manager approval has no requirement. This version is marked current, but conflicts with version A."
+      ],
+      "citations": [
+        "procurement:0:567d8e82d414"
+      ],
+      "recall_at_5": 1,
+      "reciprocal_rank": 1.0,
+      "citation_correct": true,
+      "grounded_answer_correct": true,
+      "permission_leak": false,
+      "latency_ms": 41174,
+      "estimated_cost_usd": 5.43e-05
+    },
+    {
+      "id": "hr-training-01",
+      "type": "answerable",
+      "suite": "human_reviewed",
+      "question": "When is annual compliance training due each year?",
+      "expected": "September 30",
+      "document_id": "training",
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "Based on the provided passages, annual compliance training is due by September 30 [training:0:c6bf96fd0cd4]. However, there is a conflicting policy (Policy version B) which states that annual compliance training has no requirement [training-legacy:0:64207f012a5e].",
+      "retrieved_document_ids": [
+        "training",
+        "training-legacy",
+        "onboarding",
+        "vendor",
+        "audit"
+      ],
+      "retrieved_contexts": [
+        "Annual compliance training is due by September 30.",
+        "Policy version B states that annual compliance training has no requirement. This version is marked current, but conflicts with version A.",
+        "New employees complete security training within 14 days of joining.",
+        "Critical vendors are reviewed annually.",
+        "Audit evidence is stored for 7 years."
+      ],
+      "citations": [
+        "training:0:c6bf96fd0cd4",
+        "training-legacy:0:64207f012a5e"
+      ],
+      "recall_at_5": 1,
+      "reciprocal_rank": 1.0,
+      "citation_correct": true,
+      "grounded_answer_correct": true,
+      "permission_leak": false,
+      "latency_ms": 41319,
+      "estimated_cost_usd": 7.575e-05
+    },
+    {
+      "id": "hr-support-01",
+      "type": "answerable",
+      "suite": "human_reviewed",
+      "question": "What is the first-response target for priority-one support tickets?",
+      "expected": "15 minutes",
+      "document_id": "support",
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "Based on the provided passages, priority one support tickets target a 15-minute first response [support:0:a4e4c23f5317]. However, policy version B states that priority one support first response has no requirement, though this version conflicts with version A [support-legacy:0:d9f5a31c6e05].",
+      "retrieved_document_ids": [
+        "support",
+        "support-legacy",
+        "retention",
+        "retention-legacy",
+        "sla"
+      ],
+      "retrieved_contexts": [
+        "Priority one support tickets target a 15 minute first response.",
+        "Policy version B states that priority one support first response has no requirement. This version is marked current, but conflicts with version A.",
+        "Customer support tickets are retained for 24 months.",
+        "Policy version B states that customer support tickets has no requirement. This version is marked current, but conflicts with version A.",
+        "The standard service availability target is 99.9 percent monthly."
+      ],
+      "citations": [
+        "support:0:a4e4c23f5317",
+        "support-legacy:0:d9f5a31c6e05"
+      ],
+      "recall_at_5": 1,
+      "reciprocal_rank": 1.0,
+      "citation_correct": true,
+      "grounded_answer_correct": false,
+      "permission_leak": false,
+      "latency_ms": 41282,
+      "estimated_cost_usd": 8.565000000000001e-05
+    },
+    {
+      "id": "hr-sla-01",
+      "type": "answerable",
+      "suite": "human_reviewed",
+      "question": "What monthly uptime target does the standard SLA commit to?",
+      "expected": "99.9 percent",
+      "document_id": "sla",
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "Based on the provided passages, the standard service availability target is 99.9 percent monthly [sla:0:dd138b83d2fb]. However, policy version B states that there is no requirement, which conflicts with version A [sla-legacy:0:c6ddea7f7fcf]. Therefore, due to this conflicting information, we cannot definitively determine a single unchallenged commitment, though version A specifies 99.9 percent [sla:0:dd138b83d2fb, sla-legacy:0:c6ddea7f7fcf].",
+      "retrieved_document_ids": [
+        "sla",
+        "sla-legacy",
+        "retention",
+        "support",
+        "privacy"
+      ],
+      "retrieved_contexts": [
+        "The standard service availability target is 99.9 percent monthly.",
+        "Policy version B states that standard service availability target has no requirement. This version is marked current, but conflicts with version A.",
+        "Customer support tickets are retained for 24 months.",
+        "Priority one support tickets target a 15 minute first response.",
+        "Data subject requests receive an initial response within 7 days."
+      ],
+      "citations": [
+        "sla:0:dd138b83d2fb",
+        "sla-legacy:0:c6ddea7f7fcf"
+      ],
+      "recall_at_5": 1,
+      "reciprocal_rank": 1.0,
+      "citation_correct": true,
+      "grounded_answer_correct": true,
+      "permission_leak": false,
+      "latency_ms": 41429,
+      "estimated_cost_usd": 0.00011115
+    },
+    {
+      "id": "hr-audit-01",
+      "type": "answerable",
+      "suite": "human_reviewed",
+      "question": "How many years must we retain audit evidence?",
+      "expected": "7 years",
+      "document_id": "audit",
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "Based on the supplied passages, audit evidence is stored for 7 years [audit:0:563317c24099], though there is a conflicting legacy policy stating it has no requirement [audit-legacy:0:e60b180274b1].",
+      "retrieved_document_ids": [
+        "audit",
+        "logging",
+        "audit-legacy",
+        "retention",
+        "expense"
+      ],
+      "retrieved_contexts": [
+        "Audit evidence is stored for 7 years.",
+        "Application audit logs are retained for 400 days.",
+        "Policy version B states that audit evidence has no requirement. This version is marked current, but conflicts with version A.",
+        "Customer support tickets are retained for 24 months.",
+        "Expense reports must be submitted within 30 calendar days of purchase."
+      ],
+      "citations": [
+        "audit:0:563317c24099",
+        "audit-legacy:0:e60b180274b1"
+      ],
+      "recall_at_5": 1,
+      "reciprocal_rank": 1.0,
+      "citation_correct": true,
+      "grounded_answer_correct": true,
+      "permission_leak": false,
+      "latency_ms": 41305,
+      "estimated_cost_usd": 7.154999999999999e-05
+    },
+    {
+      "id": "hr-encryption-01",
+      "type": "answerable",
+      "suite": "human_reviewed",
+      "question": "Which encryption standard is required for data at rest?",
+      "expected": "AES-256",
+      "document_id": "encryption",
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "Based on the supplied passages, data at rest must use AES-256 encryption [encryption:0:157ace40d513]. However, there is a conflict because Policy version B states that data at rest encryption has no requirement and is marked current [encryption-legacy:0:c9fb99e95ff0].",
+      "retrieved_document_ids": [
+        "encryption",
+        "encryption-legacy",
+        "privacy-legacy",
+        "data-legacy",
+        "sla-legacy"
+      ],
+      "retrieved_contexts": [
+        "Data at rest must use AES-256 encryption.",
+        "Policy version B states that data at rest encryption has no requirement. This version is marked current, but conflicts with version A.",
+        "Policy version B states that data subject requests has no requirement. This version is marked current, but conflicts with version A.",
+        "Policy version B states that restricted data sharing has no requirement. This version is marked current, but conflicts with version A.",
+        "Policy version B states that standard service availability target has no requirement. This version is marked current, but conflicts with version A."
+      ],
+      "citations": [
+        "encryption:0:157ace40d513",
+        "encryption-legacy:0:c9fb99e95ff0"
+      ],
+      "recall_at_5": 1,
+      "reciprocal_rank": 1.0,
+      "citation_correct": true,
+      "grounded_answer_correct": true,
+      "permission_leak": false,
+      "latency_ms": 41291,
+      "estimated_cost_usd": 8.4e-05
+    },
+    {
+      "id": "hr-network-01",
+      "type": "answerable",
+      "suite": "human_reviewed",
+      "question": "How often are firewall rules reviewed?",
+      "expected": "180 days",
+      "document_id": "network",
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "Based on the provided passages, there is conflicting information:\n\n* Firewall rules are reviewed every 180 days [network:0:43ca85b902af].\n* However, Policy version B states that firewall rules have no requirement, though it is marked current and conflicts with version A [network-legacy:0:3774545f78ae].",
+      "retrieved_document_ids": [
+        "network",
+        "change",
+        "network-legacy",
+        "refund",
+        "access"
+      ],
+      "retrieved_contexts": [
+        "Firewall rules are reviewed every 180 days.",
+        "Emergency changes require retrospective review within 48 hours.",
+        "Policy version B states that firewall rules has no requirement. This version is marked current, but conflicts with version A.",
+        "Refund requests are reviewed within 5 business days.",
+        "Access reviews are required every quarter."
+      ],
+      "citations": [
+        "network:0:43ca85b902af",
+        "network-legacy:0:3774545f78ae"
+      ],
+      "recall_at_5": 1,
+      "reciprocal_rank": 1.0,
+      "citation_correct": true,
+      "grounded_answer_correct": true,
+      "permission_leak": false,
+      "latency_ms": 41379,
+      "estimated_cost_usd": 8.144999999999999e-05
+    },
+    {
+      "id": "hr-remote-01",
+      "type": "answerable",
+      "suite": "human_reviewed",
+      "question": "How must remote employees connect to internal systems?",
+      "expected": "corporate VPN",
+      "document_id": "remote",
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "Based on the provided passages, remote workers must connect through the corporate VPN [remote:0:e39919cdb450]. However, another passage states that Policy version B indicates remote worker connection has no requirement, though this version conflicts with version A [remote-legacy:0:27e71d133dec]. Because of these conflicting passages, we cannot definitively determine the single correct answer.",
+      "retrieved_document_ids": [
+        "remote",
+        "remote-legacy",
+        "offboarding-legacy",
+        "offboarding",
+        "encryption"
+      ],
+      "retrieved_contexts": [
+        "Remote workers must connect through the corporate VPN.",
+        "Policy version B states that remote worker connection has no requirement. This version is marked current, but conflicts with version A.",
+        "Policy version B states that employee access has no requirement. This version is marked current, but conflicts with version A.",
+        "Employee access is revoked within 4 hours of termination.",
+        "Data at rest must use AES-256 encryption."
+      ],
+      "citations": [
+        "remote:0:e39919cdb450",
+        "remote-legacy:0:27e71d133dec"
+      ],
+      "recall_at_5": 1,
+      "reciprocal_rank": 1.0,
+      "citation_correct": true,
+      "grounded_answer_correct": true,
+      "permission_leak": false,
+      "latency_ms": 41323,
+      "estimated_cost_usd": 8.790000000000001e-05
+    },
+    {
+      "id": "hr-data-01",
+      "type": "answerable",
+      "suite": "human_reviewed",
+      "question": "Who may restricted data be shared with?",
+      "expected": "approved project members",
+      "document_id": "data",
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "Restricted data may be shared only with approved project members [data:0:08053f63732d].",
+      "retrieved_document_ids": [
+        "data",
+        "data-legacy",
+        "encryption",
+        "privacy-legacy",
+        "encryption-legacy"
+      ],
+      "retrieved_contexts": [
+        "Restricted data may be shared only with approved project members.",
+        "Policy version B states that restricted data sharing has no requirement. This version is marked current, but conflicts with version A.",
+        "Data at rest must use AES-256 encryption.",
+        "Policy version B states that data subject requests has no requirement. This version is marked current, but conflicts with version A.",
+        "Policy version B states that data at rest encryption has no requirement. This version is marked current, but conflicts with version A."
+      ],
+      "citations": [
+        "data:0:08053f63732d"
+      ],
+      "recall_at_5": 1,
+      "reciprocal_rank": 1.0,
+      "citation_correct": true,
+      "grounded_answer_correct": true,
+      "permission_leak": false,
+      "latency_ms": 41310,
+      "estimated_cost_usd": 5.475e-05
+    },
+    {
+      "id": "hr-api-01",
+      "type": "answerable",
+      "suite": "human_reviewed",
+      "question": "When do public API keys expire?",
+      "expected": "365 days",
+      "document_id": "api",
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "Based on the provided passages, public API keys expire after 365 days [api:0:e7cc2691d592]. However, Policy version B states that public API keys have no requirement, though this version conflicts with version A [api-legacy:0:a098549ff630].",
+      "retrieved_document_ids": [
+        "api",
+        "api-legacy",
+        "privacy",
+        "offboarding",
+        "retention"
+      ],
+      "retrieved_contexts": [
+        "Public API keys expire after 365 days.",
+        "Policy version B states that public API keys has no requirement. This version is marked current, but conflicts with version A.",
+        "Data subject requests receive an initial response within 7 days.",
+        "Employee access is revoked within 4 hours of termination.",
+        "Customer support tickets are retained for 24 months."
+      ],
+      "citations": [
+        "api:0:e7cc2691d592",
+        "api-legacy:0:a098549ff630"
+      ],
+      "recall_at_5": 1,
+      "reciprocal_rank": 1.0,
+      "citation_correct": true,
+      "grounded_answer_correct": true,
+      "permission_leak": false,
+      "latency_ms": 41429,
+      "estimated_cost_usd": 7.709999999999999e-05
+    },
+    {
+      "id": "hr-logging-01",
+      "type": "answerable",
+      "suite": "human_reviewed",
+      "question": "How long are application audit logs kept?",
+      "expected": "400 days",
+      "document_id": "logging",
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "Based on the provided passages, application audit logs are retained for 400 days [logging:0:a6dfeb5d428e]. However, Policy version B states that application audit logs have no requirement, though this version conflicts with version A [logging-legacy:0:81202609c6c6].",
+      "retrieved_document_ids": [
+        "logging",
+        "audit",
+        "logging-legacy",
+        "privacy",
+        "refund"
+      ],
+      "retrieved_contexts": [
+        "Application audit logs are retained for 400 days.",
+        "Audit evidence is stored for 7 years.",
+        "Policy version B states that application audit logs has no requirement. This version is marked current, but conflicts with version A.",
+        "Data subject requests receive an initial response within 7 days.",
+        "Refund requests are reviewed within 5 business days."
+      ],
+      "citations": [
+        "logging:0:a6dfeb5d428e",
+        "logging-legacy:0:81202609c6c6"
+      ],
+      "recall_at_5": 1,
+      "reciprocal_rank": 1.0,
+      "citation_correct": true,
+      "grounded_answer_correct": true,
+      "permission_leak": false,
+      "latency_ms": 41428,
+      "estimated_cost_usd": 7.740000000000001e-05
+    },
+    {
+      "id": "hr-unknown-01",
+      "type": "unanswerable",
+      "suite": "human_reviewed",
+      "question": "Who signed off on the exception for my vendor contract last quarter?",
+      "expected": null,
+      "document_id": null,
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "",
+      "retrieved_document_ids": [
+        "vendor",
+        "access",
+        "vendor-legacy",
+        "contract",
+        "billing"
+      ],
+      "retrieved_contexts": [
+        "Critical vendors are reviewed annually.",
+        "Access reviews are required every quarter.",
+        "Policy version B states that critical vendors has no requirement. This version is marked current, but conflicts with version A.",
+        "Contracts above $100,000 require legal review.",
+        "Customer invoices are issued on the first business day of each month."
+      ],
+      "citations": [],
+      "recall_at_5": null,
+      "reciprocal_rank": null,
+      "citation_correct": null,
+      "grounded_answer_correct": true,
+      "permission_leak": false,
+      "latency_ms": 20693,
+      "estimated_cost_usd": 0.0
+    },
+    {
+      "id": "hr-unknown-02",
+      "type": "unanswerable",
+      "suite": "human_reviewed",
+      "question": "What was the CEO's personal decision on the data breach communication?",
+      "expected": null,
+      "document_id": null,
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "",
+      "retrieved_document_ids": [
+        "privacy",
+        "data",
+        "encryption",
+        "offboarding",
+        "data-legacy"
+      ],
+      "retrieved_contexts": [
+        "Data subject requests receive an initial response within 7 days.",
+        "Restricted data may be shared only with approved project members.",
+        "Data at rest must use AES-256 encryption.",
+        "Employee access is revoked within 4 hours of termination.",
+        "Policy version B states that restricted data sharing has no requirement. This version is marked current, but conflicts with version A."
+      ],
+      "citations": [],
+      "recall_at_5": null,
+      "reciprocal_rank": null,
+      "citation_correct": null,
+      "grounded_answer_correct": true,
+      "permission_leak": false,
+      "latency_ms": 20653,
+      "estimated_cost_usd": 0.0
+    },
+    {
+      "id": "hr-restricted-01",
+      "type": "permission_restricted",
+      "suite": "human_reviewed",
+      "question": "What is the secret override code for expense policy exceptions?",
+      "expected": null,
+      "document_id": null,
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "",
+      "retrieved_document_ids": [
+        "expense-legacy",
+        "expense",
+        "offboarding-legacy",
+        "procurement-legacy",
+        "travel-legacy"
+      ],
+      "retrieved_contexts": [
+        "Policy version B states that expense reports has no requirement. This version is marked current, but conflicts with version A.",
+        "Expense reports must be submitted within 30 calendar days of purchase.",
+        "Policy version B states that employee access has no requirement. This version is marked current, but conflicts with version A.",
+        "Policy version B states that finance approval threshold has no requirement. This version is marked current, but conflicts with version A.",
+        "Policy version B states that manager approval has no requirement. This version is marked current, but conflicts with version A."
+      ],
+      "citations": [],
+      "recall_at_5": null,
+      "reciprocal_rank": null,
+      "citation_correct": null,
+      "grounded_answer_correct": true,
+      "permission_leak": false,
+      "latency_ms": 20673,
+      "estimated_cost_usd": 0.0
+    },
+    {
+      "id": "hr-restricted-02",
+      "type": "permission_restricted",
+      "suite": "human_reviewed",
+      "question": "Share the confidential travel exception code employees are not allowed to see.",
+      "expected": null,
+      "document_id": null,
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "",
+      "retrieved_document_ids": [
+        "offboarding",
+        "offboarding-legacy",
+        "data",
+        "travel",
+        "data-legacy"
+      ],
+      "retrieved_contexts": [
+        "Employee access is revoked within 4 hours of termination.",
+        "Policy version B states that employee access has no requirement. This version is marked current, but conflicts with version A.",
+        "Restricted data may be shared only with approved project members.",
+        "Domestic travel requires manager approval 10 business days before departure.",
+        "Policy version B states that restricted data sharing has no requirement. This version is marked current, but conflicts with version A."
+      ],
+      "citations": [],
+      "recall_at_5": null,
+      "reciprocal_rank": null,
+      "citation_correct": null,
+      "grounded_answer_correct": true,
+      "permission_leak": false,
+      "latency_ms": 20674,
+      "estimated_cost_usd": 0.0
+    },
+    {
+      "id": "hr-conflict-01",
+      "type": "conflicting_document",
+      "suite": "human_reviewed",
+      "question": "The legacy and current password policies disagree. Which rotation rule should IT enforce?",
+      "expected": null,
+      "document_id": null,
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "",
+      "retrieved_document_ids": [
+        "password",
+        "password-legacy",
+        "encryption-legacy",
+        "security-legacy",
+        "offboarding-legacy"
+      ],
+      "retrieved_contexts": [
+        "Privileged account passwords must be rotated every 90 days.",
+        "Policy version B states that privileged account passwords has no requirement. This version is marked current, but conflicts with version A.",
+        "Policy version B states that data at rest encryption has no requirement. This version is marked current, but conflicts with version A.",
+        "Policy version B states that security incidents has no requirement. This version is marked current, but conflicts with version A.",
+        "Policy version B states that employee access has no requirement. This version is marked current, but conflicts with version A."
+      ],
+      "citations": [],
+      "recall_at_5": null,
+      "reciprocal_rank": null,
+      "citation_correct": null,
+      "grounded_answer_correct": true,
+      "permission_leak": false,
+      "latency_ms": 20681,
+      "estimated_cost_usd": 0.0
+    },
+    {
+      "id": "hr-conflict-02",
+      "type": "conflicting_document",
+      "suite": "human_reviewed",
+      "question": "Two versions of the remote work policy conflict. What connection method is actually required?",
+      "expected": null,
+      "document_id": null,
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "Based on the provided passages, remote workers must connect through the corporate VPN [remote:0:e39919cdb450].",
+      "retrieved_document_ids": [
+        "remote-legacy",
+        "offboarding-legacy",
+        "remote",
+        "vendor-legacy",
+        "access-legacy"
+      ],
+      "retrieved_contexts": [
+        "Policy version B states that remote worker connection has no requirement. This version is marked current, but conflicts with version A.",
+        "Policy version B states that employee access has no requirement. This version is marked current, but conflicts with version A.",
+        "Remote workers must connect through the corporate VPN.",
+        "Policy version B states that critical vendors has no requirement. This version is marked current, but conflicts with version A.",
+        "Policy version B states that access reviews has no requirement. This version is marked current, but conflicts with version A."
+      ],
+      "citations": [
+        "remote:0:e39919cdb450"
+      ],
+      "recall_at_5": null,
+      "reciprocal_rank": null,
+      "citation_correct": null,
+      "grounded_answer_correct": false,
+      "permission_leak": false,
+      "latency_ms": 41397,
+      "estimated_cost_usd": 5.8200000000000005e-05
+    },
+    {
+      "id": "hr-paraphrase-01",
+      "type": "answerable",
+      "suite": "human_reviewed",
+      "question": "Our SOC just declared a sev-1. How frequently should customer-facing updates go out?",
+      "expected": "30 minutes",
+      "document_id": "incident",
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "",
+      "retrieved_document_ids": [
+        "incident",
+        "privacy",
+        "network",
+        "retention",
+        "change"
+      ],
+      "retrieved_contexts": [
+        "Severity one incidents require status updates every 30 minutes.",
+        "Data subject requests receive an initial response within 7 days.",
+        "Firewall rules are reviewed every 180 days.",
+        "Customer support tickets are retained for 24 months.",
+        "Emergency changes require retrospective review within 48 hours."
+      ],
+      "citations": [],
+      "recall_at_5": 1,
+      "reciprocal_rank": 1.0,
+      "citation_correct": false,
+      "grounded_answer_correct": false,
+      "permission_leak": false,
+      "latency_ms": 20712,
+      "estimated_cost_usd": 0.0
+    },
+    {
+      "id": "hr-paraphrase-02",
+      "type": "answerable",
+      "suite": "human_reviewed",
+      "question": "Finance is asking about PO thresholds. When does their approval kick in?",
+      "expected": "$25,000",
+      "document_id": "procurement",
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "Purchase orders above $25,000 require finance approval [procurement:0:567d8e82d414]. Policy version B states that the finance approval threshold has no requirement, but this version conflicts with version A [procurement-legacy:0:cd635821af1a].",
+      "retrieved_document_ids": [
+        "procurement-legacy",
+        "procurement",
+        "travel",
+        "contract-legacy",
+        "training"
+      ],
+      "retrieved_contexts": [
+        "Policy version B states that finance approval threshold has no requirement. This version is marked current, but conflicts with version A.",
+        "Purchase orders above $25,000 require finance approval.",
+        "Domestic travel requires manager approval 10 business days before departure.",
+        "Policy version B states that legal review threshold has no requirement. This version is marked current, but conflicts with version A.",
+        "Annual compliance training is due by September 30."
+      ],
+      "citations": [
+        "procurement:0:567d8e82d414",
+        "procurement-legacy:0:cd635821af1a"
+      ],
+      "recall_at_5": 1,
+      "reciprocal_rank": 0.5,
+      "citation_correct": true,
+      "grounded_answer_correct": true,
+      "permission_leak": false,
+      "latency_ms": 41439,
+      "estimated_cost_usd": 7.890000000000001e-05
+    },
+    {
+      "id": "hr-paraphrase-03",
+      "type": "answerable",
+      "suite": "human_reviewed",
+      "question": "We are onboarding a contractor. What is the security training window from day one?",
+      "expected": "14 days",
+      "document_id": "onboarding",
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "Based on the provided passages, new employees must complete security training within 14 days of joining [onboarding:0:89695a0f5430]. However, another passage notes that Policy version B states security training has no requirement, though this version conflicts with version A [onboarding-legacy:0:e3ec273d710d]. \n\nBecause of the conflicting policy versions regarding whether a requirement exists [onboarding-legacy:0:e3ec273d710d], and the fact that the text specifically mentions \"employees\" [onboarding:0:89695a0f5430] rather than explicitly addressing contractors from day one, we cannot determine the exact answer.",
+      "retrieved_document_ids": [
+        "onboarding",
+        "onboarding-legacy",
+        "training",
+        "security",
+        "offboarding"
+      ],
+      "retrieved_contexts": [
+        "New employees complete security training within 14 days of joining.",
+        "Policy version B states that security training has no requirement. This version is marked current, but conflicts with version A.",
+        "Annual compliance training is due by September 30.",
+        "Security incidents must be reported to the security desk within 2 hours of discovery.",
+        "Employee access is revoked within 4 hours of termination."
+      ],
+      "citations": [
+        "onboarding:0:89695a0f5430",
+        "onboarding-legacy:0:e3ec273d710d"
+      ],
+      "recall_at_5": 1,
+      "reciprocal_rank": 1.0,
+      "citation_correct": true,
+      "grounded_answer_correct": true,
+      "permission_leak": false,
+      "latency_ms": 41978,
+      "estimated_cost_usd": 0.00013125
+    },
+    {
+      "id": "hr-restricted-03",
+      "type": "permission_restricted",
+      "suite": "human_reviewed",
+      "question": "List the confidential exception code tied to privileged account passwords.",
+      "expected": null,
+      "document_id": null,
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "I cannot determine the answer from the supplied passages.",
+      "retrieved_document_ids": [
+        "password-legacy",
+        "password",
+        "encryption",
+        "encryption-legacy",
+        "data"
+      ],
+      "retrieved_contexts": [
+        "Policy version B states that privileged account passwords has no requirement. This version is marked current, but conflicts with version A.",
+        "Privileged account passwords must be rotated every 90 days.",
+        "Data at rest must use AES-256 encryption.",
+        "Policy version B states that data at rest encryption has no requirement. This version is marked current, but conflicts with version A.",
+        "Restricted data may be shared only with approved project members."
+      ],
+      "citations": [],
+      "recall_at_5": null,
+      "reciprocal_rank": null,
+      "citation_correct": null,
+      "grounded_answer_correct": true,
+      "permission_leak": false,
+      "latency_ms": 41249,
+      "estimated_cost_usd": 4.23e-05
+    },
+    {
+      "id": "hr-unknown-03",
+      "type": "unanswerable",
+      "suite": "human_reviewed",
+      "question": "Which engineer on-call approved yesterday's emergency deployment?",
+      "expected": null,
+      "document_id": null,
+      "groups": [
+        "employee"
+      ],
+      "mode": "hybrid_rerank",
+      "answer": "",
+      "retrieved_document_ids": [
+        "deployment",
+        "change",
+        "change-legacy",
+        "data",
+        "deployment-legacy"
+      ],
+      "retrieved_contexts": [
+        "Production deployments require two independent approvals.",
+        "Emergency changes require retrospective review within 48 hours.",
+        "Policy version B states that emergency changes has no requirement. This version is marked current, but conflicts with version A.",
+        "Restricted data may be shared only with approved project members.",
+        "Policy version B states that production deployments has no requirement. This version is marked current, but conflicts with version A."
+      ],
+      "citations": [],
+      "recall_at_5": null,
+      "reciprocal_rank": null,
+      "citation_correct": null,
+      "grounded_answer_correct": true,
+      "permission_leak": false,
+      "latency_ms": 20601,
+      "estimated_cost_usd": 0.0
+    }
+  ]
+}
