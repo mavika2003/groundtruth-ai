@@ -1,0 +1,33 @@
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: groundtruth
+      POSTGRES_PASSWORD: groundtruth
+      POSTGRES_DB: groundtruth
+    ports: ["5432:5432"]
+    volumes: ["pgdata:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U groundtruth"]
+      interval: 5s
+      retries: 10
+  api:
+    build: .
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql+psycopg://groundtruth:groundtruth@db:5432/groundtruth
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://phoenix:4318
+    ports: ["8000:8000"]
+    depends_on:
+      db: {condition: service_healthy}
+  web:
+    build: ./web
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8000
+    ports: ["3000:3000"]
+    depends_on: [api]
+  phoenix:
+    image: arizephoenix/phoenix:latest
+    ports: ["6006:6006", "4318:4318"]
+volumes:
+  pgdata:

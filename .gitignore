@@ -1,0 +1,11 @@
+.env
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+*.egg-info/
+benchmark-results.json
+*-results.json
+web/node_modules/
+web/.next/
+web/.env.local
