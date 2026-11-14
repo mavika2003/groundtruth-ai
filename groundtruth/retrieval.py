@@ -72,6 +72,28 @@ def reranker():
     return TextCrossEncoder(model_name="Xenova/ms-marco-MiniLM-L-6-v2")
 
 
+def terms_overlap(question_terms: set[str], passage_tokens: set[str]) -> float:
+    matched = 0
+    for term in question_terms:
+        if term in passage_tokens:
+            matched += 1
+            continue
+        if len(term) > 3 and term.endswith("s") and term[:-1] in passage_tokens:
+            matched += 1
+            continue
+        if not term.endswith("s") and f"{term}s" in passage_tokens:
+            matched += 1
+            continue
+        stem = term[:6] if len(term) >= 6 else term
+        if len(stem) >= 4 and any(
+            token.startswith(stem) or stem.startswith(token[: min(len(token), 6)])
+            for token in passage_tokens
+            if len(token) >= 4
+        ):
+            matched += 1
+    return matched / len(question_terms)
+
+
 def evidence_sufficient(question: str, hits: list[Hit]) -> bool:
     if not hits:
         return False
@@ -79,4 +101,4 @@ def evidence_sufficient(question: str, hits: list[Hit]) -> bool:
     terms = set(tokenize(question)) - stopwords
     if not terms:
         return False
-    return any(len(terms & set(tokenize(hit.passage))) / len(terms) >= 0.35 for hit in hits)
+    return any(terms_overlap(terms, set(tokenize(hit.passage))) >= 0.35 for hit in hits)

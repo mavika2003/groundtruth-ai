@@ -31,5 +31,7 @@ def test_bm25_and_fusion():
 def test_evidence_gate_and_chunking():
     assert not evidence_sufficient("Who approved the last exception?", [])
     assert evidence_sufficient("What applies to travel manager approval?", [Hit("a", "a", "Travel requires manager approval", 0.9)])
+    security = [Hit("s", "security", "Security incidents must be reported to the security desk within 2 hours of discovery.", 0.5)]
+    assert evidence_sufficient("What is the incident reporting deadline?", security)
     assert split_passages(" ".join(str(n) for n in range(190))).__len__() == 2
     assert len(split_passages(" ".join(str(n) for n in range(180)))) == 1

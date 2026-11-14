@@ -19,7 +19,7 @@ For a public portfolio demo, see [the deployment guide](docs/deployment.md). Git
 1. Copy `.env.example` to `.env` and set `OPENAI_API_KEY` (or configure Gemini below), a random `JWT_SECRET` (32+ characters), and a separate random `ADMIN_TOKEN`.
 2. Run `docker compose up --build`.
 3. Open [the workbench](http://localhost:3000), [API docs](http://localhost:8000/docs), and [Phoenix](http://localhost:6006).
-4. Create a demo user token with `python -m groundtruth.token --sub demo --groups employee` from an environment with `JWT_SECRET` set. Paste it into the UI.
+4. Create a JWT for the workbench (see [Access tokens](#access-tokens)) or use **Use demo access** when `PUBLIC_DEMO_ENABLED=true`.
 5. Seed the synthetic corpus with `docker compose exec api python -m groundtruth.benchmark seed`.
 6. Run an ablation mode: `docker compose exec api python -m groundtruth.benchmark evaluate --mode dense --output /app/dense-results.json`. Repeat for `bm25`, `hybrid`, and `hybrid_rerank`. The result JSON includes aggregate metrics and each case's failure details.
 7. Copy results to the host with `docker compose cp api:/app/dense-results.json ./dense-results.json` (and repeat per mode), then load them in the UI's ablation explorer.
@@ -48,6 +48,53 @@ EMBEDDING_DIMENSIONS=1536
 Keep the key out of chat and commits. Gemini embeddings use Google's native embedding endpoint and 1536 dimensions; generation uses Google's OpenAI-compatible chat endpoint. Do not mix vectors from different embedding models in one database: use a fresh database and reseed when switching providers. The default cost rates are illustrative and should be changed to your actual Gemini pricing. The optional Ragas path is currently configured for OpenAI; the main query and benchmark paths support Gemini.
 
 The publication-ready study structure is in [`docs/ablation-study.md`](docs/ablation-study.md). Fill its table from measured runs, then add a short human-reviewed failure analysis before citing improvements on a resume.
+
+## Access tokens
+
+The workbench **Access token** field expects a signed JWT. Group claims control which documents retrieval may use (`employee` sees public policies; `admin` also sees `*-secret` confidential variants). Tokens expire after eight hours.
+
+`JWT_SECRET` in `.env` (or on Render) must be at least 32 characters. The CLI signs with that secret; the API verifies it on every query and on `GET /documents`.
+
+### Generate with Docker Compose (local)
+
+With `docker compose up` running and `JWT_SECRET` set in `.env`:
+
+```bash
+# Employee-only access (typical demo / reviewer)
+docker compose exec -T api python -m groundtruth.token --sub demo --groups employee
+
+# Admin-only audience (confidential *-secret documents; does not include employee-only policies)
+docker compose exec -T api python -m groundtruth.token --sub demo --groups admin
+
+# Employee plus admin (full corpus including confidential variants)
+docker compose exec -T api python -m groundtruth.token --sub demo --groups employee admin
+```
+
+Copy the printed string into the workbench **Access token** field (password-style input). Use `-T` when you are not attached to an interactive TTY.
+
+### Generate on the host (venv)
+
+From the repo root, with `JWT_SECRET` in `.env` or exported:
+
+```bash
+.venv/bin/python -m groundtruth.token --sub demo --groups employee
+.venv/bin/python -m groundtruth.token --sub demo --groups admin
+```
+
+### Public hosted demo (Vercel + Render)
+
+When `PUBLIC_DEMO_ENABLED=true` on the API, visitors can click **Use demo access** instead of pasting a JWT. That mints a short-lived **employee-only** token via `POST /auth/demo` (daily query cap applies).
+
+To mint tokens manually against a **hosted** API, run the CLI locally with the **same** `JWT_SECRET` as Render (not your old local secret):
+
+```bash
+export JWT_SECRET='paste-render-jwt-secret-here'
+.venv/bin/python -m groundtruth.token --sub demo --groups employee
+```
+
+### Admin token (not a JWT)
+
+`ADMIN_TOKEN` is separate. It is **not** pasted into the workbench access field. Use it only in the **Evaluation** tab to load live metrics (`X-Admin-Token` header). Set it in `.env` / Render and keep it private.
 
 ## Metrics and limits
 

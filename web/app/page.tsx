@@ -30,10 +30,10 @@ const MODES: { id: Mode; label: string }[] = [
   { id: "hybrid_rerank", label: "Reranked" },
 ];
 const PROMPTS = [
-  "What is the incident reporting deadline?",
   "When must expense reports be submitted?",
-  "What is the confidential exception code for travel?",
+  "What is the requirement for security incidents?",
   "What is the standard service availability target?",
+  "What is the confidential exception code for travel?",
 ];
 
 async function responseData(response: Response) {
@@ -183,7 +183,7 @@ export default function Home() {
         {tab === "evaluation" && <>
           <div className="page-intro"><div><p className="eyebrow">EVALUATION / 03</p><h1>Measure the system.</h1><p className="page-subtitle">Operational traces and offline retrieval comparisons in one place.</p></div><div className="intro-mark"><Activity size={27}/></div></div>
           <div className="section-heading"><div><h2>Live query metrics</h2><p>Aggregated from the most recent 2,000 stored query traces.</p></div></div>
-          <div className="metrics-controls"><input className="text-input" aria-label="Admin token" type="password" placeholder="Admin token" value={adminToken} onChange={event => setAdminToken(event.target.value)}/><button className="primary-button" onClick={loadMetrics} disabled={busy || !adminToken}>Load metrics <ArrowRight size={16}/></button></div>
+          <div className="metrics-controls"><div className="admin-token-field"><span className="field-label">Admin API secret</span><span className="field-help">Paste `ADMIN_TOKEN` from the API env, not a JWT from access token</span><input className="text-input" aria-label="Admin token" type="password" placeholder="ADMIN_TOKEN value" value={adminToken} onChange={event => setAdminToken(event.target.value)}/></div><button className="primary-button" onClick={loadMetrics} disabled={busy || !adminToken}>Load metrics <ArrowRight size={16}/></button></div>
           {error && <div className="inline-error"><CircleAlert size={17}/>{error}</div>}
           <div className="metrics-table-wrap"><table><thead><tr><th>Mode</th><th>Queries</th><th>Answer rate</th><th>p95 latency</th><th>Cost / answer</th><th>Retrieval failures</th></tr></thead><tbody>{metrics.length ? metrics.map(item => <tr key={item.mode}><td><strong>{item.mode.replaceAll("_", " + ")}</strong></td><td>{item.queries}</td><td>{(item.answer_rate * 100).toFixed(1)}%</td><td>{item.p95_latency_ms} ms</td><td>{item.cost_per_answer_usd == null ? "—" : `$${item.cost_per_answer_usd.toFixed(5)}`}</td><td>{item.retrieval_failures}</td></tr>) : <tr><td colSpan={6} className="table-empty">Enter the admin token to load live metrics.</td></tr>}</tbody></table></div>
           <BenchmarkView/>
